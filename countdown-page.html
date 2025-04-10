@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinKit - 곧 오픈합니다</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('background2.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 120px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 20px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            min-width: 80px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown {
+                justify-content: space-around;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+                min-width: 60px;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+		.logo {
+			width: 120px;
+			height: auto;
+			display: block;
+
+			/* PNG 외곽선을 따라 하이라이트 효과 */
+			filter: drop-shadow(0 0 7px rgba(255, 255, 255, 1));
+		}        
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="overlay"></div>
+    
+    <img src="logo_rm_bg.png" alt="LinKit 로고" class="logo">
+    
+    <div class="container">
+        <h1>새로운 시작을 준비 중입니다</h1>
+        <p>SNS 통합 커머스 플랫폼 LinKit이 2025년 5월 1일에 정식 오픈합니다. 함께 새로운 커머스의 미래를 만들어가세요.</p>
+        
+        <div class="countdown">
+            <div class="countdown-item">
+                <div id="days" class="countdown-number pulse">00</div>
+                <div class="countdown-label">일</div>
+            </div>
+            <div class="countdown-item">
+                <div id="hours" class="countdown-number">00</div>
+                <div class="countdown-label">시간</div>
+            </div>
+            <div class="countdown-item">
+                <div id="minutes" class="countdown-number">00</div>
+                <div class="countdown-label">분</div>
+            </div>
+            <div class="countdown-item">
+                <div id="seconds" class="countdown-number">00</div>
+                <div class="countdown-label">초</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 목표 날짜 설정: 2025년 5월 1일
+        const targetDate = new Date('May 1, 2025 00:00:00').getTime();
+
+        // 1초마다 카운트다운 업데이트
+        const countdown = setInterval(function() {
+            // 현재 날짜와 시간
+            const now = new Date().getTime();
+            
+            // 남은 시간 계산
+            const distance = targetDate - now;
+            
+            // 시간 계산
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // 결과 표시
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            
+            // 카운트다운이 끝나면
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.querySelector('.countdown').innerHTML = '<h2>LinKit이 오픈했습니다!</h2>';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
