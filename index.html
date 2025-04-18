@@ -24,7 +24,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('background.png');
+            background-image: url('background2.png');
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -138,6 +138,66 @@
 			/* PNG 외곽선을 따라 하이라이트 효과 */
 			filter: drop-shadow(0 0 7px rgba(255, 255, 255, 1));
 		}        
+
+    /* 푸터 스타일 */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 12px 20px;
+        background: rgba(40, 40, 40, 0.6); /* 어두운 색상에 투명도 적용 */
+        backdrop-filter: blur(5px);
+        text-align: center;
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.8); /* 텍스트 색상도 밝게 조정 */
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+    }
+
+    .footer-logo {
+        width: 80px;
+        height: auto;
+        margin-right: 20px;
+    }
+
+    .footer-content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .footer-line {
+        margin: 2px 0;
+    }
+
+    .footer a {
+        color: #666;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            flex-direction: column;
+            padding: 10px;
+        }
+        
+        .footer-logo {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+        
+        .footer-content {
+            width: 100%;
+        }
+    }
     </style>
 </head>
 <body>
@@ -169,6 +229,14 @@
             </div>
         </div>
     </div>
+
+<!-- 푸터 HTML -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-line">(주)링킷 대표이사 권연현 | 주소 : 서울시 금천구 가산디지털2로 135 가산어반워크 1차 B동 1120호</div>
+        <div class="footer-line">사업자등록번호 : 724-86-03446 | 이메일문의 : <a href="mailto:we@linkit.best">we@linkit.best</a></div>
+    </div>
+</footer>
 
     <script>
         // 목표 날짜 설정: 2025년 5월 1일
