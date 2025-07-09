@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinKit</title>
+    <title>LinKit - 커머스 연결 플랫폼</title>
     <style>
         * {
             margin: 0;
@@ -45,159 +45,192 @@
             top: 30px;
             left: 30px;
             width: 120px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 0 7px rgba(255, 255, 255, 1));
+            z-index: 10;
         }
 
-        .container {
+        .split-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .split-section {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             text-align: center;
-            padding: 0 20px;
+            padding: 40px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 3rem;
+        .split-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+
+        .split-section:hover::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .split-section:hover {
+            transform: scale(1.02);
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
             margin-bottom: 20px;
+            font-weight: 700;
             letter-spacing: 2px;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        .countdown {
-            display: flex;
-            justify-content: center;
-            margin: 40px 0;
-            gap: 20px;
+        .section-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
         }
 
-        .countdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 80px;
-        }
-
-        .countdown-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 10px;
-            min-width: 80px;
-            margin-bottom: 10px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .countdown-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .section-description {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
             opacity: 0.8;
         }
 
-        p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .seller-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .agency-section {
+            background: linear-gradient(135deg, rgba(118, 75, 162, 0.1) 0%, rgba(102, 126, 234, 0.1) 100%);
+        }
+
+        .seller-section:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+        }
+
+        .agency-section:hover {
+            background: linear-gradient(135deg, rgba(118, 75, 162, 0.2) 0%, rgba(102, 126, 234, 0.2) 100%);
+        }
+
+        .features-list {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .features-list li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 0.95rem;
             opacity: 0.9;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .countdown {
-                justify-content: space-around;
-            }
-            
-            .countdown-number {
-                font-size: 1.8rem;
-                min-width: 60px;
-            }
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .divider {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 80%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3), transparent);
+            z-index: 5;
         }
 
-        .pulse {
-            animation: pulse 2s infinite ease-in-out;
+        /* 스타일 추가 및 기존 split-section 배경 제거, section-bg 추가 */
+        .split-section {
+            position: relative;
+            overflow: hidden;
+            /* 기존 배경 제거 */
+            background: none !important;
         }
-
-		.logo {
-			width: 120px;
-			height: auto;
-			display: block;
-
-			/* PNG 외곽선을 따라 하이라이트 효과 */
-			filter: drop-shadow(0 0 7px rgba(255, 255, 255, 1));
-		}        
-
-    /* 푸터 스타일 */
-    .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 12px 20px;
-        background: rgba(40, 40, 40, 0.6); /* 어두운 색상에 투명도 적용 */
-        backdrop-filter: blur(5px);
-        text-align: center;
-        font-size: 0.75rem;
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.8); /* 텍스트 색상도 밝게 조정 */
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-    }
-
-    .footer-logo {
-        width: 80px;
-        height: auto;
-        margin-right: 20px;
-    }
-
-    .footer-content {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        text-align: center;
-    }
-
-    .footer-line {
-        margin: 2px 0;
-    }
-
-    .footer a {
-        color: #666;
-        text-decoration: none;
-    }
-
-    .footer a:hover {
-        text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-        .footer {
+        .section-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            filter: brightness(0.7);
+            transition: filter 0.4s;
+        }
+        .split-section:hover .section-bg {
+            filter: brightness(0.95);
+        }
+        .section-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
             flex-direction: column;
-            padding: 10px;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
         }
-        
-        .footer-logo {
-            margin-right: 0;
-            margin-bottom: 10px;
+        .divider {
+            /* 기존과 동일 */
         }
-        
-        .footer-content {
-            width: 100%;
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+            .split-section {
+                height: 50vh;
+            }
         }
-    }
+
+        /* 푸터 완전 삭제 */
     </style>
 </head>
 <body>
@@ -206,62 +239,43 @@
     
     <img src="logo_rm_bg.png" alt="LinKit 로고" class="logo">
     
-    <div class="container">
-        <h1>파일럿이 시작되었습니다.</h1>
-        <p>커머스의 사람과 일, 사람과 사람, 사람과 도구를 효율적으로 연결합니다.</p>
+    <div class="split-container">
+        <!-- 셀러(왼쪽) 영역 -->
+        <div class="split-section seller-section" onclick="window.open('https://seller.linkit.best/', '_blank')">
+            <div class="section-bg" style="background-image: url('seller_bg.jpg');"></div>
+            <div class="section-content">
+                <h2 class="section-title" style="color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size:2.3rem;">당신의 공동구매<br><span style='color:#1ec9c9;'>링킷</span>에서 시작하세요</h2>
+                <p class="section-description" style="color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4); font-size:1.1rem; margin-bottom:32px;">
+                    SNS 공동구매에 적합한 상품을 받아보고<br>공동구매 전문 인플루언서가 되어보세요
+                </p>
+                <a href="https://seller.linkit.best/" class="cta-button" style="background:#fff; color:#1ec9c9; font-weight:700; font-size:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,0.15); border-radius:30px; padding:14px 38px; border:none;" target="_blank">무료로 시작하기</a>
+            </div>
+        </div>
         
-        <div class="countdown">
-            <div class="countdown-item">
-                <div id="days" class="countdown-number pulse">00</div>
-                <div class="countdown-label">일째</div>
-            </div>
-            <div class="countdown-item">
-                <div id="hours" class="countdown-number">00</div>
-                <div class="countdown-label">시간</div>
-            </div>
-            <div class="countdown-item">
-                <div id="minutes" class="countdown-number">00</div>
-                <div class="countdown-label">분</div>
-            </div>
-            <div class="countdown-item">
-                <div id="seconds" class="countdown-number">00</div>
-                <div class="countdown-label">초</div>
+        <div class="divider"></div>
+        
+        <!-- 에이전시(오른쪽) 영역 -->
+        <div class="split-section agency-section" onclick="window.open('https://agency.linkit.best/', '_blank')">
+            <div class="section-bg" style="background-image: url('agency_bg.jpg');"></div>
+            <div class="section-content">
+                <h2 class="section-title" style="color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size:2.3rem;">공동구매의 모든 것</h2>
+                <p class="section-description" style="color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4); font-size:1.1rem; margin-bottom:18px;">
+                    셀러관리부터 매출 분석까지, 한번에 해결
+                </p>
+                <p class="section-description" style="color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4); font-size:1.05rem; margin-bottom:32px;">
+                    셀러 관리는 편하게, 분석은 자동으로<br>링킷이라면 공구 운영, 혼자서도 문제없어요.
+                </p>
+                <a href="https://agency.linkit.best/" class="cta-button" style="background:#fff; color:#3a5cff; font-weight:700; font-size:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,0.15); border-radius:30px; padding:14px 38px; border:none;" target="_blank">1분만에 시작하기</a>
             </div>
         </div>
     </div>
 
-<!-- 푸터 HTML -->
-<footer class="footer">
-    <div class="footer-content">
-        <div class="footer-line">(주)링킷 대표이사 권연현 | 주소 : 서울시 금천구 가산디지털2로 135 가산어반워크 1차 B동 1120호</div>
-        <div class="footer-line">사업자등록번호 : 724-86-03446 | 이메일문의 : <a href="mailto:we@linkit.best">we@linkit.best</a></div>
-    </div>
-</footer>
-
-    <script>
-        // 파일럿 시작 날짜 설정: 2024년 5월 7일 00시 00분 00초
-        const startDate = new Date('2025-05-07T00:00:00+09:00').getTime();
-
-        // 1초마다 카운트업 업데이트
-        const countup = setInterval(function() {
-            // 현재 날짜와 시간
-            const now = new Date().getTime();
-            
-            // 경과 시간 계산
-            const distance = now - startDate;
-            
-            // 시간 계산
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            // 결과 표시
-            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
-            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
-        }, 1000);
-    </script>
+    <!-- 푸터 HTML -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-line">(주)링킷 대표이사 권연현 | 주소 : 서울시 금천구 가산디지털2로 135 가산어반워크 1차 B동 1120호</div>
+            <div class="footer-line">사업자등록번호 : 724-86-03446 | 이메일문의 : <a href="mailto:we@linkit.best">we@linkit.best</a></div>
+        </div>
+    </footer>
 </body>
 </html>
